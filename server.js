@@ -8,20 +8,17 @@ var app = require('http').createServer(function(req, res) {
             res.writeHead(500);
             return res.end('Error loading index.html');
         }
-        groups[req.url] = io.of(req.url).on('connection', function(socket) {
+        var group=req.url;
+        if(!groups[group])groups[group] = io.of(group).on('connection', function(socket) {
             socket.on('message', function(data) {
                 console.info(data);
-                socket.send("[ECHO] " + data);
-                groups[req.url].emit("[ECHO] " + data);
+                console.info("Name: " + data.name);
+                console.info("Msg: " + data.msg);
+                groups[group].emit("message", {
+                    name: data.name,
+                    msg: data.msg
+                });
             });
-            /*group[req.url].emit('a message', {
-                everyone: 'in',
-                '/chat': 'will get'
-            });
-            socket.emit('a message', {
-                that: 'only',
-                '/chat': 'will get'
-            });*/
         });
         res.writeHead(200, {
             'Content-Type': 'text/html',

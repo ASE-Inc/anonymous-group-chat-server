@@ -11,10 +11,6 @@
             function log(msg) {
                 document.getElementById('log').appendChild(document.createTextNode(new Date() + ' ' + msg + '\n'));
             }
-            function status(msg) {
-                log(msg);
-                document.getElementById('status').textContent = msg;
-            }
             function clearLog() {
                 var e = document.getElementById('log');
                 while (e.hasChildNodes()) {
@@ -28,19 +24,23 @@
             function connect() {
                 log('Connecting to local server...');
                 if (socket == null) {
-                    socket = io.connect(null,{'auto connect': false});
+                    socket = io.connect(document.location.href);
                     socket.on('connect', function () {
-                        status('Connected');
+                        log('Connected');
+                        document.getElementById('status').textContent = 'Connected';
                     });
                     socket.on('message', function (data) {
-                        log(data);
+                        log(data.name+": "+data.msg);
                     });
                 }
                 socket.socket.connect();
             }
             function send() {
                 if (socket && socket.socket.connected) {
-                    socket.send(document.getElementById('text').value);
+                    socket.emit("message",{
+                        name:document.getElementById('nametext').value,
+                        msg:document.getElementById('text').value
+                    });
                     log('>' + document.getElementById('text').value);
                 } else {
                     log('Not connected.');
@@ -75,8 +75,9 @@
         <p>SessionId: <span id="sessionId">-</span></p>
         <p>Transport: <span id="transport">-</span></p>
         <p>
+            <label>Name: <input id="nametext" type="text" size="80" value=""/></label>
             <label>Message: <input id="text" type="text" size="80" value=""/></label>
-            <input type=button value="Echo" onclick="send()">
+            <input type=button value="Send" onclick="send()">
         </p>
         <p>
             <input type=button value="Spam 100 packets" onclick="send100()"/>

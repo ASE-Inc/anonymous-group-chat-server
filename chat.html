@@ -1,0 +1,113 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>Anonymous Group Chat: Based on NodeJS & websockets</title>
+        <script src="/socket.io/socket.io.js"></script>
+        <script>
+            onerror = function (msg) {
+                log(msg);
+            }
+            function log(msg) {
+                document.getElementById('log').appendChild(document.createTextNode(new Date() + ' ' + msg + '\n'));
+            }
+            function clearLog() {
+                var e = document.getElementById('log');
+                while (e.hasChildNodes()) {
+                    e.removeChild(e.firstChild);
+                }
+                e.appendChild(document.createTextNode('Log: \n'));
+            }
+        </script>
+        <script>
+            var socket = null;
+            function connect() {
+                log('Connecting to AGC server...');
+                if (socket == null) {
+                    socket = io.connect(document.location.href);
+                    socket.on('connect', function () {
+                        log('Connected');
+                        document.getElementById('statusbar').className = 'Connected';
+                        document.getElementById('status').textContent = 'Connected';
+                    });
+                    socket.on('message', function (data) {
+                        log(data.name+": "+data.msg);
+                    });
+                }
+                socket.socket.connect();
+            }
+            function send() {
+                if (socket && socket.socket.connected) {
+                    socket.emit("message",{
+                        name:document.getElementById('nametext').value,
+                        msg:document.getElementById('text').value
+                    });
+                    //log('>' + document.getElementById('text').value);
+                } else {
+                    log('Not connected.');
+                }
+                return false;
+            }
+            function send100() {
+                if (socket && socket.socket.connected) {
+                    for (var i = 0; i < 100; i += 1) {
+                        socket.emit("message",{
+                            name:document.getElementById('nametext').value,
+                            msg:'test'+ i
+                        });
+                        //log('> test' + i);
+                    }
+                } else {
+                    log('Not connected.');
+                }
+            }
+            function update() {
+                if (socket && socket.socket && socket.socket.transport) {
+                    document.getElementById('sessionId').textContent = socket.socket.transport.sessid;
+                    document.getElementById('transport').textContent = socket.socket.transport.name;
+                } else {
+                    document.getElementById('sessionId').textContent = '-';
+                    document.getElementById('transport').textContent = '-';
+                }
+            }
+            setInterval(update, 10);
+        </script>
+        <style>
+            #title {
+                text-align:center;
+            }
+            #statusbar {
+                color: white;
+            }
+            #statusbar.Idle {
+                background-color:grey;
+            }
+            #statusbar.Connected {
+                background-color:green;
+            }
+            .sessionDetails {
+            }
+        </style>
+    </head>
+    <body>
+        <h1 id="title">Anonymous Group Chat</h1>
+        <div id="statusbar" class="Idle"> Status: <span id="status">Idle</span></div>
+        <div class="sessionDetails">SessionId: <span id="sessionId">-</span></div>
+        <div class="sessionDetails">Transport: <span id="transport">-</span></div>
+        <form action="" method="post">
+            <label for="nametext">Name: <input id="nametext" type="text" size="80" value=""/></label><hr/>
+            <label for="text">Message: <textarea id="text" value="" placeholder="Message ..."/></textarea>
+            <input type="submit" value="Send" onclick="send()">
+        </form>
+        <p>
+            <input type=button value="Spam 100 packets" onclick="send100()"/>
+            <input type=button value="Clear log" onclick="clearLog()"/>
+        </p>
+
+        <pre id="log">Log:</pre>
+        <footer>
+            
+        </footer>
+        <script>connect();</script>
+    </body>
+</html>

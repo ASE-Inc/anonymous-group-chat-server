@@ -3,12 +3,82 @@
     <head>
         <meta charset="utf-8"/>
         <title>Anonymous Group Chat: Based on NodeJS & websockets</title>
+        
+        <script src="/socket.io/socket.io.js"></script>
+        <script>
+            onerror = function (msg) {
+                log(msg);
+            }
+            function log(msg) {
+                document.getElementById('log').appendChild(document.createTextNode(new Date() + ' ' + msg + '\n'));
+            }
+            var socket = null;
+            function connect() {
+                log('Connecting to AGC server...');
+                if (socket == null) {
+                    socket = io.connect(document.location.origin);
+                    socket.on('connect', function () {
+                        log('Connected');
+                        document.getElementById('statusbar').className = 'Connected';
+                        document.getElementById('status').textContent = 'Connected';
+                    });
+                    socket.on('message', function (data) {
+                        log(data.name+": "+data.msg);
+                    });
+                }
+                socket.socket.connect();
+            }
+            function update() {
+                if (socket && socket.socket && socket.socket.transport) {
+                    document.getElementById('sessionId').textContent = socket.socket.transport.sessid;
+                    document.getElementById('transport').textContent = socket.socket.transport.name;
+                } else {
+                    document.getElementById('sessionId').textContent = '-';
+                    document.getElementById('transport').textContent = '-';
+                }
+            }
+            setInterval(update, 10);
+            function connectGroup() {
+                document.location.href = document.location.origin + "/" + document.getElementById('grouptext').value;
+                return false;
+            }
+        </script>
+        <style>
+            #title {
+                text-align:center;
+            }
+            #statusbar {
+                color: white;
+            }
+            #statusbar.Idle {
+                background-color:grey;
+            }
+            #statusbar.Connected {
+                background-color:green;
+            }
+            .sessionDetails {
+            }
+            #msgtext {
+                width: 91%;
+                min-height: 69px;
+                display: block;
+            }
+        </style>
     </head>
     <body>
         <h1>Anonymous Group Chat</h1>
-        <form>
-            <label for="grouptext">Name: <input id="grouptext" type="text" size="80" value=""/></label>
-            <input type="submit" value="Connect">
-        </form>
+        <h2>To start chating connect to a group by entering the group below or typing it after / in location bar.</h2>
+        <label for="grouptext">Group: <input id="grouptext" type="text" size="80" value="" required/></label>
+        <input type="button" value="Connect" onclick="connectGroup()">
+        
+        <div id="statusbar" class="Idle"> Status: <span id="status">Idle</span></div>
+        <div class="sessionDetails">SessionId: <span id="sessionId"> </span></div>
+        <div class="sessionDetails">Transport: <span id="transport"> </span></div>
+        <pre id="log">Log:</pre>
+        <footer>
+            Create by: <a href="http://abhishekmunie.com">Abhishek Munie</a>
+            Powered by: <a href="http://c9.io">Cloud9 IDE</a> & <a href="http://www.heroku.com/">Heroku (pronounced her-OH-koo)</a>
+        </footer>
+        <script>connect();</script>
     </body>
 </html>

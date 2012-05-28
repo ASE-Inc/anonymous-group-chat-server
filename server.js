@@ -6,10 +6,12 @@ var fs = require('fs'),
     chatServers = ["http://agc1.abhishekmunie.com", "http://agc2.abhishekmunie.com", "http://agc3.abhishekmunie.com"];
 var distributionLen = distributionServers.length;
 for (var len = distributionLen; len;) {
-    (distributionSockets[len] = new ioClient.Socket(distributionServers[--len])).connect();
-    distributionSockets[len].on('createGroup', function(group) {
+    var ds = new ioClient.Socket(distributionServers[--len]);
+    ds.connect();
+    ds.on('createGroup', function(group) {
         createGroup(group);
     });
+    distributionSockets[len] = ds;
 }
 
 function distributeMessage(sockets, data) {

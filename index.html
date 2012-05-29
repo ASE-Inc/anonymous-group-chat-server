@@ -66,9 +66,14 @@
     </head>
     <body>
         <h1 id="title">Anonymous Group Chat</h1>
-        <div id="statusbar" class="Idle"> Status: <span id="status">Idle</span></div>
-        <div class="sessionDetails">SessionId: <span id="sessionId"> </span></div>
-        <div class="sessionDetails">Transport: <span id="transport"> </span></div>
+        <header>
+        </header>
+        <div class="statusbar">
+            <div class="statusbar_wrap">
+            <div>Status: <span id="status">Idle</span></div>
+            <div class="sessionDetails">SessionId: <span id="sessionId"> </span></div>
+            <div class="sessionDetails">Transport: <span id="transport"> </span></div>
+        </div>
         <hr/>
         <form onsubmit="return false;">
             <label for="nametext">Name: <input id="nametext" type="text" size="80" value="" required/></label><hr/>

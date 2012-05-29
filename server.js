@@ -16,6 +16,7 @@ function generateDistributionSockets(group) {
         });
         distributionSockets[len] = ds;
     }
+    return distributionSockets;
 }
 distributionSockets = generateDistributionSockets("");
 
@@ -34,7 +35,8 @@ function createGroup(group) {
                 socket: socket
             };
             socket.on('message', function(data) {
-                distributeMessage(groups[group], data);
+                groups[group].socket.emit("message", data);
+                distributeMessage(groups[group].distributionSockets, data);
             });
             socket.on('disconnect', function() {});
             socket.on('setName', function(name) {

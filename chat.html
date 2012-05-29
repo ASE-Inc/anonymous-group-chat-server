@@ -9,6 +9,7 @@
                 log(msg);
             }
             function log(msg) {
+                console.log(new Date() + ' ' + msg + '\n');
                 document.getElementById('log').appendChild(document.createTextNode(new Date() + ' ' + msg + '\n'));
             }
             function clearLog() {
@@ -47,6 +48,7 @@
                             msg:document.getElementById('msgtext').value
                         });
                     }
+                    document.getElementById('msgtext').value="";
                     //log('>' + document.getElementById('text').value);
                 } else {
                     log('Not connected.');

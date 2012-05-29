@@ -62,19 +62,37 @@ function generateGroups(group) {
     });
 }
 
+var url = require('url'),
+    path = require('path');
+var mimeTypes = {
+    "html": "text/html",
+    "jpeg": "image/jpeg",
+    "jpg": "image/jpeg",
+    "png": "image/png",
+    "js": "text/javascript",
+    "css": "text/css",
+    "ico": "image/x-icon"
+};
+
 var app = require('http').createServer(function(req, res) {
     var group = req.url;
-    generateGroups(group);
-    fs.readFile((group.length > 1) ? 'chat.html' : 'index.html', function(err, data) {
-        if (err) {
-            res.writeHead(500);
-            return res.end('Error loading page!');
+    var uri = url.parse(req.url).pathname;
+    var filename = path.join(process.cwd(), uri);
+    path.exists(filename, function(exists) {
+        if (!exists) {
+            generateGroups(group);
+            res.writeHead(200, {
+                'Content-Type': 'text/html'
+            });
+            filename = path.join(process.cwd(), url.parse((group.length > 1) ? '/chat.html' : '/index.html').pathname);
         }
+        if (fs.statSync(filename).isDirectory()) filename += '/index.html';
+        var mimeType = mimeTypes[path.extname(filename).split(".")[1]];
         res.writeHead(200, {
-            'Content-Type': 'text/html',
-            "Content-Length": data.length
+            'Content-Type': mimeType
         });
-        res.end(data);
+        var fileStream = fs.createReadStream(filename);
+        fileStream.pipe(res);
     });
 });
 app.listen(process.env.PORT || process.env.C9_PORT || 8001);

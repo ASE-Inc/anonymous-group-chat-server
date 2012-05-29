@@ -1,0 +1,21 @@
+#title {
+    text-align: center;
+}
+#statusbar {
+    color: white;
+}
+#statusbar.Idle {
+    background-color: grey;
+}
+#statusbar.Connected {
+    background-color: green;
+}
+.sessionDetails {}
+#msgtext {
+    width: 91% ;
+    min-height: 69px;
+    display: block;
+}
+.messageBubble {
+
+}

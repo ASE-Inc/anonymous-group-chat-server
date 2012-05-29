@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
+  <ShortName>abhishekmunie.com</ShortName>
+  <LongName>Abhishek Munie | Welcome to My Official Domain</LongName>
+  <Description>Abhishek Munie's Official Domain</Description>
+  <Tags>abhishek abhishekmunie munie</Tags>
+  <Contact>admin@abhishekmunie.com</Contact>
+  <Url type="text/html" template='http://www.google.com/search?sitesearch=abhishekmunie.com&amp;as_q={searchTerms}'/>
+  <Attribution>Abhishek Munie</Attribution>
+  <Language>en-us</Language>
+  <OutputEncoding>UTF-8</OutputEncoding>
+  <InputEncoding>UTF-8</InputEncoding>
+</OpenSearchDescription>

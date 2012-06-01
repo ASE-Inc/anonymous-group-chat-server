@@ -85,20 +85,20 @@ var app = require('http').createServer(function(req, res) {
         fileStream.pipe(res);
     });
 });
-app.listen(process.env.PORT || process.env.C9_PORT || 8001);
 var io = require('socket.io').listen(app);
-io.configure(function() {
-/* Production Settings
+app.listen(process.env.C9_PORT || process.env.PORT || 8001);
+/* io.configure(function() {
+    //Production Settings
     io.enable('browser client minification');
     io.enable('browser client etag');
     io.enable('browser client gzip');
-    io.set('log level', 1);*/
+    io.set('log level', 1);
     io.set('transports', ['websocket', 'htmlfile', 'xhr-polling', 'jsonp-polling', 'flashsocket']);
     io.set("polling duration", 10);
     io.set('authorization', function(handshakeData, callback) {
         callback(null, true); // error first callback style 
     });
-});
+});*/
 io.sockets.on('connection', function(socket) {
     var user = {
         name: undefined,

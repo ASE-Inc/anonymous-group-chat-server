@@ -5,7 +5,7 @@
         <title>Abhishek Munie | Anonymous Group Chat: Based on NodeJS & websockets</title>
         <link rel=Help href="http://abhishekmunie/myExperiments/anonymous-group-chat/Help/"/>
         <meta name=author content="Abhishek Munie"/>
-        <link type="text/plain" rel=author href="/humans.txt"/>
+        <link type="text/plain" rel=author href="humans.txt"/>
         <meta name=synonyms content="agc, anonymous-group-chat, Anonymous Group Chat, Abhishek Munie's Anonymous Group Chat"/>
         <meta name=keywords content="agc, chat client, anonymous, group chat"/>
         <meta name=description content="{{ page.description }}"/>
@@ -28,11 +28,11 @@
         <link rel=apple-touch-icon-precomposed href="apple-touch-icon-57x57-precomposed.png"/>
         
         <meta property="og:title" content="Anonymous Group Chat"/>
-        <meta property="og:type" content="{{ page.og_type }}"/>
-        <meta property="og:url" content="{{ page.og_url }}"/>
-        <meta property="og:image" content="{{ page.og_image }}"/>
+        <meta property="og:type" content=""/>
+        <meta property="og:url" content="http://agc.abhishekmunie.com"/>
+        <meta property="og:image" content=""/>
         <meta property="og:site_name" content="Abhishek Munie | Anonymous Group Chat: Based on NodeJS & websockets"/>
-        <meta property="og:description" content="{{ page.og_description }}"/>
+        <meta property="og:description" content=""/>
         <meta property="og:email" content="agc@abhishekmunie.com"/>
         <meta property="fb:app_id" content="119876094728323"/>
         <meta property="fb:page_id" content=""/>
@@ -41,9 +41,9 @@
         <meta itemprop=description content=""/>
         <meta itemprop=image content=""/>
         
-        <link rel=stylesheet href='/css/main000.css' type="text/css" media="handheld, all"/>
-        <style type="text/css" media="print, screen and (min-width: 481px)">@import url("/css/advanced000.css");</style>
-        <link href="/css/main000.css" rel=stylesheet type="text/css" media="handheld, only screen and (max-device-width: 480px)"/>
+        <link rel=stylesheet href='css/main000.css' type="text/css" media="handheld, all"/>
+        <style type="text/css" media="print, screen and (min-width: 481px)">@import url("css/advanced000.css");</style>
+        <link href="css/main000.css" rel=stylesheet type="text/css" media="handheld, only screen and (max-device-width: 480px)"/>
 
         <script src="/js/libs/modernizr.js" type="text/javascript"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js" type="text/javascript"></script>
@@ -56,37 +56,52 @@
                 defer&&(sp.defer="defer");
                 var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(sp,s);
             }
-            insertScript('/js/main000.js');
+            insertScript('js/main000.js');
             //Google Web Analytics
             var _gaq=_gaq||[];
-            _gaq.push(['_setAccount', ''], ['_trackPageview'], ['_trackPageLoadTime']);
+            _gaq.push(['_setAccount', 'UA-32218116-1'], ['_trackPageview'], ['_trackPageLoadTime']);
             insertScript(('https:'==document.location.protocol?'https://ssl':'http://www')+'.google-analytics.com/ga.js');
         </script>
         <!--[if IE]><script src="/js/libs/html5.js"></script><script></script><![endif]-->
     </head>
     <body>
+        <div style="overflow:hidden;position:absolute;right:0;top:0;height:115px;width:115px;"><div class="github_ribbon" style="width:145px;"><a href="https://guthub.com/abhishekmunie" rel="me">Fork me on GitHub</a></div></div>
+        <div id="set_name" class="top_dialog">
+            <form id="name_form">
+                <label for="nametext">Name: <input id="nametext" type="text" size="80" value="" required/></label>
+                <input id="sendButton" type="submit" value="Signin">
+            </form>
+        </div>
+        <div id="add_group" class="top_dialog">
+            <form id="new_group_form">
+                <label for="nametext">Group: <input id="grouptext" type="text" size="80" value="" required/></label>
+                <input id="sendButton" type="submit" value="Add Group">
+            </form>
+        </div>
         <h1 id="title">Anonymous Group Chat</h1>
         <header>
+            <div class="statusbar">
+                <div class="statusbar_wrap">
+                <div>Status: <span id="status">Idle</span></div>
+                <div class="sessionDetails">SessionId: <span id="sessionId"> </span></div>
+                <div class="sessionDetails">Transport: <span id="transport"> </span></div>
+            </div>
+            <hr/>
         </header>
-        <div class="statusbar">
-            <div class="statusbar_wrap">
-            <div>Status: <span id="status">Idle</span></div>
-            <div class="sessionDetails">SessionId: <span id="sessionId"> </span></div>
-            <div class="sessionDetails">Transport: <span id="transport"> </span></div>
+                <form onsubmit="return false;">
+                    <label for="msgtext">Message: <textarea id="messagetext" value="" placeholder="Message ..." required/></textarea>
+                    <input id="sendButton" type="submit" value="Send">
+                </form>
+        <div id="message_box_container">
+            <div class="message_box">
+                <input type=button value="Clear History" onclick="clearLog()"/>
+                <pre id="log">Messages:</pre>
+                
+            </div>
         </div>
-        <hr/>
-        <form onsubmit="return false;">
-            <label for="nametext">Name: <input id="nametext" type="text" size="80" value="" required/></label><hr/>
-            <label for="msgtext">Message: <textarea id="msgtext" value="" placeholder="Message ..." required/></textarea>
-            <label for="publiccheck">Public: <input id="publiccheck" type="checkbox" size="80" value="" required/></label><hr/>
-            <input type="submit" value="Send" onclick="send()">
-        </form>
-        <input type=button value="Clear History" onclick="clearLog()"/>
-        
-        <pre id="log">Messages:</pre>
         <footer>
             Create by: <a href="http://abhishekmunie.com">Abhishek Munie</a>
-            Powered by: <a href="http://c9.io">Cloud9 IDE</a> & <a href="http://www.heroku.com/">Heroku (pronounced her-OH-koo)</a>
+            Powered by: <a href="http://c9.io">Cloud9 IDE</a>, <a href="http://socket.io">Socket.IO</a> & <a href="http://www.heroku.com/">Heroku (pronounced her-OH-koo)</a>
         </footer>
         <script>connect();</script>
     </body>

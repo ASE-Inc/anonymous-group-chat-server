@@ -6,7 +6,8 @@ var fs = require('fs'),
     distributionServers = ["http://agcmd1.herokuapp.com", "http://agcmd2.herokuapp.com", "http://agcmd3.herokuapp.com"];
 var distributionLen = distributionServers.length,
     distributionSockets = [],
-    groups = {};
+    groups = {},
+    users = {};
 
 function generateDistributionSockets(group) {
     var distributionSockets = [];
@@ -15,6 +16,9 @@ function generateDistributionSockets(group) {
         ds.connect();
         ds.on('createGroup', function(group) {
             createGroup(group);
+        });
+        ds.on('message', function(data) {
+            groups[group].socket.emit("message", data);
         });
         distributionSockets[len] = ds;
     }
@@ -26,32 +30,25 @@ function distributeMessage(sockets, data) {
     sockets[Math.floor(Math.random() * distributionLen)].emit("message", data);
 }
 
+function addGroupToUser(name, group, socket) {
+    users[name].sockets[group] = socket;
+    socket.on('message', function(data) {
+        var messageData = {
+            name: name,
+            data: data
+        };
+        socket.namespace.emit("message", messageData);
+        distributeMessage(groups[group].distributionSockets, messageData);
+    });
+}
+
 function createGroup(group) {
     if ((group.length == 1) || groups[group]) return;
     groups[group] = {
-        users: {},
         distributionSockets: generateDistributionSockets(group),
         socket: io.of(group).on('connection', function(socket) {
-            var user = {
-                name: undefined,
-                socket: socket
-            };
-            socket.on('message', function(data) {
-                socket.namespace.emit("message", data);
-                distributeMessage(groups[group].distributionSockets, data);
-            });
-            socket.on('disconnect', function() {});
-            socket.on('setName', function(name) {
-                socket.set('name', name, function() {
-                    user.name = name;
-                    groups[group].users[name] = user;
-                    //socket.emit('ready');
-                });
-            });
-            socket.on('msg', function() {
-                socket.get('nickname', function(err, name) {
-                    console.log('Chat message by ', name);
-                });
+            socket.get('name', function(err, name) {
+                addGroupToUser(name, group, socket);
             });
         })
     };
@@ -67,14 +64,19 @@ function generateGroup(group) {
 var app = require('http').createServer(function(req, res) {
     var uri = url.parse(req.url).pathname;
     var filename = path.join(process.cwd(), uri);
+    if (fs.statSync(filename).isDirectory()) filename += '/index.html';
     path.exists(filename, function(exists) {
         if (!exists) {
-            filename = path.join(process.cwd(), url.parse('/index.html').pathname);
+            res.writeHead(404, {
+                "Content-Type": "text/plain"
+            });
+            filename = path.join(process.cwd(), url.parse('/404.html').pathname);
         }
-        else if (fs.statSync(filename).isDirectory()) filename += '/index.html';
-        res.writeHead(200, {
-            'Content-Type': mimeTypes[path.extname(filename).split(".")[1]]
-        });
+        else {
+            res.writeHead(200, {
+                'Content-Type': mimeTypes[path.extname(filename).split(".")[1]]
+            });
+        }
         var ua = req.headers['user-agent'];
         if (ua && ua.indexOf('MSIE') > -1 && /html?($|\?|#)/.test(req.url)) {
             res.setHeader('X-UA-Compatible', 'IE=Edge,chrome=1');
@@ -85,21 +87,44 @@ var app = require('http').createServer(function(req, res) {
 });
 app.listen(process.env.PORT || process.env.C9_PORT || 8001);
 var io = require('socket.io').listen(app);
-/*io.configure(function() {
+io.configure(function() {
+/* Production Settings
+    io.enable('browser client minification');
+    io.enable('browser client etag');
+    io.enable('browser client gzip');
+    io.set('log level', 1);*/
+    io.set('transports', ['websocket', 'htmlfile', 'xhr-polling', 'jsonp-polling', 'flashsocket']);
+    io.set("polling duration", 10);
     io.set('authorization', function(handshakeData, callback) {
         callback(null, true); // error first callback style 
     });
-});*/
+});
 io.sockets.on('connection', function(socket) {
+    var user = {
+        name: undefined,
+        sockets: {
+            root: socket
+        }
+    };
+    socket.on('setName', function(name, response) {
+        if (user[name]) response(false);
+        else {
+            socket.set('name', name, function() {});
+            user.name = name;
+            users[name] = user;
+            response(true);
+        }
+    });
     socket.on('createGroup', function(group) {
         createGroup(group);
     });
     socket.on('generateGroup', function(group) {
         generateGroup(group);
     });
+    socket.on('disconnect', function() {});
     socket.namespace.emit("message", {
         name: "server",
-        msg: "connected new member"
+        message: "connected new member"
     });
 });
 createGroup("/");

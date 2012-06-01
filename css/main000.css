@@ -70,6 +70,33 @@ td { vertical-align: top; }
 
 .chromeframe { margin: 0.2em 0; background: #ccc; color: black; padding: 0.2em 0; }
 
+
+.fixedRatioBox,.goldenBox,.goldenBox_flexi,.goldenBox_Vertical,.goldenBox_Vertical_flexi{position:relative;display:inline-block;}
+.fixedRatioBox>.dummy,.goldenBox>.dummy,.goldenBox_flexi>.dummy,.goldenBox_Vertical>.dummy,.goldenBox_Vertical_flexi>.dummy{float:left;width:0;height:0;}
+.goldenBox>div.dummy,.goldenBox_flexi>div.dummy{margin-top:61.80339887498948482045868343656381177203091798057628621354%;}
+.goldenBox_Vertical>div.dummy,.goldenBox_Vertical_flexi>div.dummy{margin-top:161.80339887498948482045868343656381177203091798057628621354%;}
+.goldenBox>div.content,.goldenBox>div:not(.dummy),.goldenBox_Vertical>div.content,.goldenBox_Vertical>div:not(.dummy){position:absolute;top:0;right:0;bottom:0;left:0;}
+.goldenBox>div.overflow_content,.goldenBox_Vertical>div.overflow_content{position:absolute;top:0;left:0;}
+.button_box{
+    -webkit-box-shadow: rgba(0, 0, 0, .4) 0 1px 3px;
+    -o-box-shadow: rgba(0, 0, 0, .4) 0 1px 3px;
+    -ms-box-shadow: rgba(0, 0, 0, .4) 0 1px 3px;
+    -moz-box-shadow: rgba(0, 0, 0, .4) 0 1px 3px;
+    box-shadow: rgba(0, 0, 0, .4) 0 1px 3px;
+    box-shadow: rgba(0, 0, 0, .4) 0 1px 6px url(0/IE9);
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -o-border-radius: 5px;
+    -ms-border-radius: 5px;
+    border-radius: 5px;
+}
+
+div.github_ribbon{background-color:#a00;position:absolute;right:-3em;top:15px;
+    transform:rotate(45deg);-webkit-transform:rotate(45deg);-moz-transform:rotate(45deg);-o-transform:rotate(45deg);-ms-transform:rotate(45deg);
+    box-shadow:0 0 1em #888;-webkit-box-shadow:0 0 1em #888;-moz-box-shadow:0 0 1em #888;-o-box-shadow:0 0 1em #888;-ms-box-shadow:0 0 1em #888;
+}
+div.github_ribbon a{border:1px solid #faa;color:#fff;display:block;font:bold 81.25% 'Helvetiva Neue',Helvetica,Arial,sans-serif;margin:0.05em 0;padding:0.5em 3.5em;text-align:center;text-decoration:none;text-shadow:0 0 0.5em #444;}
+
 #title {
     text-align: center;
 }
@@ -144,10 +171,21 @@ td { vertical-align: top; }
 
 .sessionDetails {}
 #msgtext {
-    width: 91% ;
+    width: 91%;
     min-height: 69px;
     display: block;
 }
-.messageBubble {
+
+.messageBox {
+    width: 33.33%;
+    min-width: 450px;
+}
+.messageBox .tab{
+
+}
+.messageBox .message-container {
+
+}
+.messageBox .message-container .message {
 
 }

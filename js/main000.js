@@ -59,6 +59,7 @@ function RootConnection() {
     this.sessionID = null;
     this.transportName = null;
     this.status = "Idle";
+    var THIS = this;
     this.socket.on('connect', function() {
         log('Connected ');
     });
@@ -67,17 +68,17 @@ function RootConnection() {
     });
     this.socket.socket.connect();
     this.reconnect = function() {
-        this.socket.socket.connect();
+        THIS.socket.socket.connect();
     }
     this.update = function() {
-        if (this.socket && this.socket.socket && this.socket.socket.transport) {
-            this.sessionID = this.socket.socket.transport.sessid;
-            this.transportName = this.socket.socket.transport.name;
+        if (THIS.socket && THIS.socket.socket && THIS.socket.socket.transport) {
+            THIS.sessionID = THIS.socket.socket.transport.sessid;
+            THIS.transportName = THIS.socket.socket.transport.name;
         }
         else {
-            this.sessionID = null;
-            this.transportName = null;
-            this.reconnect();
+            THIS.sessionID = null;
+            THIS.transportName = null;
+            THIS.reconnect();
         }
     }
 }
@@ -115,6 +116,7 @@ var user = new User();
 
 function Group(group) {
     this.name = group;
+    var THIS = this;
     rootConnection.socket.emit('generateGroup', group);
     this.socket = io.connect(selectedChatServer + '/' + group);
     this.socket.on('connect', function() {
@@ -124,12 +126,12 @@ function Group(group) {
     });
     this.socket.on('message', function(data) {
         log(data.name + ": " + data.msg);
-        this.messageBox.showMessage(data.name, data.msg);
+        THIS.messageBox.showMessage(data.name, data.msg);
     });
     this.socket.socket.connect();
     this.send = function(message) {
-        if (this.socket && this.socket.socket.connected) {
-            this.socket.emit("message", {
+        if (THIS.socket && THIS.socket.socket.connected) {
+            THIS.socket.emit("message", {
                 name: user.name,
                 message: message
             });
@@ -138,7 +140,7 @@ function Group(group) {
         return false;
     }
     this.selected = function() {
-        return $('.group-selected', this.messageBox).attr('checked');
+        return $('.group-selected', THIS.messageBox).attr('checked');
     }
     this.messageBox = new MessageBox(this);
     $('#message_box_container').append(this.messageBox);

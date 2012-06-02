@@ -92,13 +92,23 @@ io.sockets.on('connection', function(socket) {
             root: socket
         }
     };
-    socket.on('setName', function(name, response) {
-        if (user[name]) response(false);
+    socket.on('setName', function(name, final, response) {
+        if (user[name]) {
+            response({
+                name: name,
+                available: false
+            });
+        }
         else {
-            socket.set('name', name, function() {});
-            user.name = name;
-            users[name] = user;
-            response(true);
+            if (final) {
+                socket.set('name', name, function() {});
+                user.name = name;
+                users[name] = user;
+            }
+            response({
+                name: name,
+                available: true
+            });
         }
     });
     socket.on('createGroup', function(group) {

@@ -125,7 +125,7 @@ div.github_ribbon a{border:1px solid #faa;color:#fff;display:block;font:bold 81.
   position: relative;
   margin: 0 auto;
 }
-.statusbar.good  .statusbar_wrap {
+.statusbar.connected  .statusbar_wrap {
   background: #77cd00;
   background: -moz-linear-gradient(top,  #77cd00 0%, #4db800 100%);
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#77cd00), color-stop(100%,#4db800));

@@ -70,6 +70,7 @@
             <form id="name_form">
                 <label for="nametext">Name: <input id="nametext" type="text" size="80" value="" required/></label>
                 <input id="signinButton" type="submit" value="Signin">
+                <span class="status-message"></span>
             </form>
         </div>
         <div id="add_group" class="top_dialog">
@@ -80,7 +81,7 @@
         </div>
         <h1 id="title">Anonymous Group Chat</h1>
         <header>
-            <div class="statusbar">
+            <div id="statusbar" class="statusbar">
                 <div class="statusbar_wrap">
                 <div>Status: <span id="status">Idle</span></div>
                 <div class="sessionDetails">SessionId: <span id="sessionId"> </span></div>

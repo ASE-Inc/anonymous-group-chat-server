@@ -54,6 +54,12 @@ onerror = function(msg) {
     log(msg);
 }
 
+function setStatus(status) {
+    $('#statusbar').removeClass('connected').removeClass('connecting').removeClass('disconnected');
+    $('#statusbar').addClass(status);
+    rootConnection.status = status;
+}
+
 function RootConnection() {
     this.socket = io.connect(selectedChatServer);
     this.sessionID = null;
@@ -62,13 +68,17 @@ function RootConnection() {
     var THIS = this;
     this.socket.on('connect', function() {
         log('Connected ');
+        setStatus('connected');
+        document.getElementById('status').textContent = 'Connected';
     });
     this.socket.on('message', function(data) {
         log(data.name + ": " + data.msg);
     });
     this.socket.socket.connect();
+    setStatus('connecting');
     this.reconnect = function() {
         THIS.socket.socket.connect();
+        setStatus('connecting');
     }
     this.update = function() {
         if (THIS.socket && THIS.socket.socket && THIS.socket.socket.transport) {
@@ -78,13 +88,16 @@ function RootConnection() {
         else {
             THIS.sessionID = null;
             THIS.transportName = null;
+            if (rootConnection.status == 'connected') setStatus('disconnected');
             //THIS.reconnect();
         }
+        $('#sessionId').html(THIS.sessionID);
+        $('#transport').html(THIS.transportName);
     }
 }
 log('Connecting to AGC server...');
 var rootConnection = new RootConnection();
-setInterval(rootConnection.update, 10);
+setInterval(rootConnection.update, 100);
 
 function send() {
     if (rootConnection.socket && rootConnection.socket.socket.connected) {
@@ -96,13 +109,25 @@ function send() {
     return false;
 }
 
-function setName() {
-    rootConnection.socket.emit('setName', $('#name_form #nametext').val(), function(response) {
-        if (response) {
-            log("Name set");
+
+function checkName(name) {
+    rootConnection.socket.emit('setName', name, false, function(response) {
+        if (response.availabe) {
+            $('#name_form .status-message').html("Name:" + response.name + " availabe");
         }
         else {
-            log("Name not set");
+            $('#name_form .status-message').html("Name:" + response.name + " not availabe");
+        }
+    })
+}
+
+function setName(name) {
+    rootConnection.socket.emit('setName', name, true, function(response) {
+        if (response.availabe) {
+            log("Name:" + response.name + " set");
+        }
+        else {
+            log("Name:" + response.name + " not set");
         }
     })
 }
@@ -121,7 +146,7 @@ function Group(group) {
     this.socket = io.connect(selectedChatServer + '/' + group);
     this.socket.on('connect', function() {
         log('Connected ' + group);
-        document.getElementById('statusbar').className = 'Connected';
+        document.getElementById('statusbar').className = 'connected';
         document.getElementById('status').textContent = 'Connected';
     });
     this.socket.on('message', function(data) {
@@ -153,13 +178,6 @@ function addGroup() {
 
 var MessageBox;
 (function($) {
-/*$.fn.MessageBox = function(o) {
-        o = $.extend({}, o);
-        return this.each(function() {
-            var $this = $(this)
-        });
-    }*/
-
     MessageBox = function(group) {
         var mb = $('<div class="messageBox">');
         mb.tab = $('<div class="tab"><input class="group-selected" type="checkbox" size="80"/>' + group.name + '<span class="close">x</span></div>');
@@ -181,12 +199,15 @@ var MessageBox;
             send();
         });
         $('#name_form').submit(function(e) {
-            setName();
+            setName($('#name_form #nametext').val());
             return false;
         });
         $('#new_group_form').submit(function(e) {
             addGroup();
             return false;
+        });
+        $('#name_form #nametext').keypress(function(e) {
+            checkName($('#name_form #nametext').val());
         });
     });
 })(jQuery);

@@ -69,13 +69,13 @@
         <div id="set_name" class="top_dialog">
             <form id="name_form">
                 <label for="nametext">Name: <input id="nametext" type="text" size="80" value="" required/></label>
-                <input id="sendButton" type="submit" value="Signin">
+                <input id="signinButton" type="submit" value="Signin">
             </form>
         </div>
         <div id="add_group" class="top_dialog">
             <form id="new_group_form">
-                <label for="nametext">Group: <input id="grouptext" type="text" size="80" value="" required/></label>
-                <input id="sendButton" type="submit" value="Add Group">
+                <label for="grouptext">Group: <input id="grouptext" type="text" size="80" value="" required/></label>
+                <input id="addGroupButton" type="submit" value="Add Group">
             </form>
         </div>
         <h1 id="title">Anonymous Group Chat</h1>
@@ -87,9 +87,12 @@
                 <div class="sessionDetails">Transport: <span id="transport"> </span></div>
             </div>
             <hr/>
+            <div>
+                Name: <span id="username"></span>
+            </div>
         </header>
-                <form onsubmit="return false;">
-                    <label for="msgtext">Message: <textarea id="messagetext" value="" placeholder="Message ..." required/></textarea>
+                <form id="message_form">
+                    <label for="messagetext">Message: <textarea id="messagetext" value="" placeholder="Message ..." required/></textarea>
                     <input id="sendButton" type="submit" value="Send">
                 </form>
         <div id="message_box_container">

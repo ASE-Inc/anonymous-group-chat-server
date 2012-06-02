@@ -2,7 +2,8 @@ var fs = require('fs'),
     url = require('url'),
     path = require('path'),
     ioClient = require('socket.io-client'),
-    //chatServers = ["http://agc.abhishekmunie.com", "http://agc1.abhishekmunie.com", "http://agc2.abhishekmunie.com", "http://agc3.abhishekmunie.com"],
+    //chatServers = ["http://agc.abhishekmunie.com", "http://agc1.abhishekmunie.com",
+    //"http://agc2.abhishekmunie.com", "http://agc3.abhishekmunie.com"],
     distributionServers = ["http://agcmd1.herokuapp.com", "http://agcmd2.herokuapp.com", "http://agcmd3.herokuapp.com"];
 var distributionLen = distributionServers.length,
     distributionSockets = [],
@@ -127,7 +128,7 @@ io.sockets.on('connection', function(socket) {
         message: "connected new member"
     });
 });
-createGroup("/");
+generateGroup("/");
 var mimeTypes = {
     ".3gp": "video/3gpp",
     ".a": "application/octet-stream",

@@ -78,7 +78,7 @@ function RootConnection() {
         else {
             THIS.sessionID = null;
             THIS.transportName = null;
-            THIS.reconnect();
+            //THIS.reconnect();
         }
     }
 }

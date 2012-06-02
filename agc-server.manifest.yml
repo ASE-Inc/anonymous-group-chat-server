@@ -1,0 +1,13 @@
+---
+applications:
+  .:
+    url: agc-server.cloudfoundry.com
+    framework:
+      name: node
+      runtime: node06
+      info:
+        mem: 256M
+        description:  Node.JS Application
+        exec:
+    mem: 256M
+    instances: 3

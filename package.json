@@ -1,8 +1,26 @@
 {
     "name": "anonymous-group-chat",
-    "version": "0.0.1",
+    "description": "A free nodejs and socket.io based chat sevice with anonymous groups.",
+    "version": "0.0.2",
+    "authors": [{
+        "name": "Abhishek Munie",
+        "email": "contact@abhishekmunie.com"
+    }],
+    "keywords": ["agc", "chat client", "anonymous", "group chat"],
+    "homepage": "https://agc.abhishekmunie.com",
+    "repository": {
+        "type": "git",
+        "url": "https://abhishekmunie@github.com/abhishekmunie/anonymous-group-chat.git"
+    },
+    "engines": {
+        "node": ">= 0.6.0"
+    },
+    "main": "server.js",
     "dependencies": {
+        "express": "latest",
+        "h5bp": "latest",
         "socket.io": ">= 0.9",
         "socket.io-client": ">= 0.9.6"
-    }
+    },
+    "devDependencies": {}
 }

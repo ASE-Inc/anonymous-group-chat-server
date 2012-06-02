@@ -162,7 +162,7 @@ var MessageBox;
 
     MessageBox = function(group) {
         var mb = $('<div class="messageBox">');
-        mb.tab = $('<div class="tab"><input class="group-selected" type="checkbox" size="80"/>' + group + '<span class="close">x</span></div>');
+        mb.tab = $('<div class="tab"><input class="group-selected" type="checkbox" size="80"/>' + group.name + '<span class="close">x</span></div>');
         mb.messageContainer = $('<div class="message-container"></div>');
         mb.append(mb.tab);
         mb.append(mb.messageContainer);

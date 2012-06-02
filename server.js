@@ -90,7 +90,7 @@ var app = require('h5bp').server(require('express'), {
     });
 });*/
 var io = require('socket.io').listen(app);
-app.listen(process.env.C9_PORT || process.env.PORT || process.env.VCAP_APP_PORT || 8001);
+app.listen(process.env.C9_PORT || process.env.PORT || process.env.VCAP_APP_PORT || process.env.VMC_APP_PORT || 1337 || 8001);
 /* io.configure(function() {
     //Production Settings
     io.enable('browser client minification');

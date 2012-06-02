@@ -65,25 +65,6 @@
         <!--[if IE]><script src="/js/libs/html5.js"></script><script></script><![endif]-->
     </head>
     <body>
-        <div style="position:absolute;right:0;top:0;"><div class="github_ribbon"><a href="https://github.com/abhishekmunie/anonymous-group-chat" rel="me">Fork me on GitHub</a></div></div>
-        <div id="set_name" class="top_dialog">
-            <div class="top_dialog_wrappqer">
-                <form id="name_form">
-                    <label for="nametext">Name: <input id="nametext" type="text" size="80" value="" required/></label>
-                    <input id="signinButton" type="submit" value="Signin">
-                    <span class="status-message"></span>
-                </form>
-            </div>
-        </div>
-        <div id="add_group" class="top_dialog">
-            <div class="top_dialog_wrappqer">
-                <form id="new_group_form">
-                    <label for="grouptext">Group: <input id="grouptext" type="text" size="80" value="" required/></label>
-                    <input id="addGroupButton" type="submit" value="Add Group">
-                </form>
-            </div>
-        </div>
-        <div id="ui_disabler"></div>
         <header>
             <h1 id="title">Anonymous Group Chat</h1>
             <div id="statusbar" class="statusbar">
@@ -97,19 +78,42 @@
                 Name: <span id="username"></span>
             </div>
         </header>
-                <form id="message_form">
-                    <label for="messagetext">Message: <textarea id="messagetext" value="" placeholder="Message ..." required/></textarea>
-                    <input id="sendButton" type="submit" value="Send">
-                </form>
-        <div id="message_box_container">
-            <div class="message_box">
-                <input type=button value="Clear History" onclick="clearLog()"/>
-                <pre id="log">Messages:</pre>
+        <div >
+            <div style="overflow:hidden;position:absolute;right:0;top:0;width:125px;height:125px;"><div class="github_ribbon"><a href="https://github.com/abhishekmunie/anonymous-group-chat" rel="me">Fork me on GitHub</a></div></div>
+            <div id="set_name" class="top_dialog">
+                <div class="top_dialog_wrappqer">
+                    <form id="name_form">
+                        <label for="nametext">Name: <input id="nametext" type="text" size="80" value="" required/></label>
+                        <input id="signinButton" type="submit" value="Signin">
+                        <span class="status-message"></span>
+                    </form>
+                </div>
+            </div>
+            <div id="add_group" class="top_dialog">
+                <div class="top_dialog_wrappqer">
+                    <form id="new_group_form">
+                        <label for="grouptext">Group: <input id="grouptext" type="text" size="80" value="" required/></label>
+                        <input id="addGroupButton" type="submit" value="Add Group">
+                    </form>
+                </div>
+            </div>
+            <div id="ui_disabler"></div>
+                    <form id="message_form">
+                        <label for="messagetext">Message: <textarea id="messagetext" value="" placeholder="Message ..." required/></textarea>
+                        <input id="sendButton" type="submit" value="Send">
+                    </form>
+            <div id="message_box_container">
+                <div class="message_box">
+                    <input type=button value="Clear History" onclick="clearLog()"/>
+                    <pre id="log">Messages:</pre>
+                </div>
             </div>
         </div>
-        <footer>
-            Create by: <a href="http://abhishekmunie.com">Abhishek Munie</a>
-            Powered by: <a href="http://c9.io">Cloud9 IDE</a>, <a href="http://socket.io">Socket.IO</a> & <a href="http://www.heroku.com/">Heroku (pronounced her-OH-koo)</a>
+        <footer id="MyFooter" class="Bar outerBlocks">
+            <div id="MyFooterBox" class="Shadow nrcOuterBlock">
+                Create by: <a href="http://abhishekmunie.com">Abhishek Munie</a>
+                Powered by: <a href="http://c9.io">Cloud9 IDE</a>, <a href="http://socket.io">Socket.IO</a> & <a href="http://www.heroku.com/">Heroku (pronounced her-OH-koo)</a>
+            </div>
         </footer>
     </body>
 </html>

@@ -48,7 +48,7 @@ function qualifyURL(url) {
 
 var chatServer = ["http://agc.abhishekmunie.com", "http://agc1.abhishekmunie.com", "http://agc2.abhishekmunie.com", "http://agc3.abhishekmunie.com"],
     chatLen = chatServer.length,
-    selectedChatServer = [Math.floor(Math.random() * chatLen)];
+    selectedChatServer = chatServer[Math.floor(Math.random() * chatLen)];
 
 onerror = function(msg) {
     log(msg);

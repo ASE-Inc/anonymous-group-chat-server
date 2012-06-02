@@ -97,7 +97,7 @@ function send() {
 }
 
 function setName() {
-    rootConnection.socket.emit($('#name_form #nametext').val(), function(response) {
+    rootConnection.socket.emit('setName', $('#name_form #nametext').val(), function(response) {
         if (response) {
             log("Name set");
         }

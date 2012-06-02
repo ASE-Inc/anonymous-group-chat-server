@@ -87,7 +87,7 @@ var app = require('http').createServer(function(req, res) {
     });
 });
 var io = require('socket.io').listen(app);
-app.listen(process.env.C9_PORT || process.env.PORT || 8001);
+app.listen(process.env.C9_PORT || process.env.PORT || process.env.VCAP_APP_PORT || 8001);
 /* io.configure(function() {
     //Production Settings
     io.enable('browser client minification');

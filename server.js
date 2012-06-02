@@ -61,8 +61,11 @@ function generateGroup(group) {
         group: group
     });
 }
-
-var app = require('http').createServer(function(req, res) {
+var app = require('h5bp').server(require('express'), {
+    root: __dirname + "/",
+    maxAge: 1000 * 60 * 60
+});
+/*var app = require('http').createServer(function(req, res) {
     var uri = url.parse(req.url).pathname;
     var filename = path.join(process.cwd(), uri);
     path.exists(filename, function(exists) {
@@ -85,7 +88,7 @@ var app = require('http').createServer(function(req, res) {
         var fileStream = fs.createReadStream(filename);
         fileStream.pipe(res);
     });
-});
+});*/
 var io = require('socket.io').listen(app);
 app.listen(process.env.C9_PORT || process.env.PORT || process.env.VCAP_APP_PORT || 8001);
 /* io.configure(function() {

@@ -48,8 +48,9 @@ function qualifyURL(url) {
 
 var chatServers = ["http://agc.abhishekmunie.com", "http://agc1.abhishekmunie.com", "http://agc2.abhishekmunie.com", "http://agc3.abhishekmunie.com"],
     chatLen = chatServers.length,
-    selectedChatServer = chatServers[Math.floor(Math.random() * chatLen)];
-
+    //selectedChatServer = chatServers[Math.floor(Math.random() * chatLen)],
+    selectedChatServer = document.location.origin,
+    DOMReady = false;
 onerror = function(msg) {
     log(msg);
 }
@@ -70,16 +71,13 @@ function RootConnection() {
         log('Connected ');
         setStatus('connected');
         document.getElementById('status').textContent = 'Connected';
+        THIS.interval = setInterval(THIS.update, 100);
+        if (DOMReady) initialize();
     });
     this.socket.on('message', function(data) {
         log(data.name + ": " + data.msg);
     });
     this.socket.socket.connect();
-    setStatus('connecting');
-    this.reconnect = function() {
-        THIS.socket.socket.connect();
-        setStatus('connecting');
-    }
     this.update = function() {
         if (THIS.socket && THIS.socket.socket && THIS.socket.socket.transport) {
             THIS.sessionID = THIS.socket.socket.transport.sessid;
@@ -88,16 +86,22 @@ function RootConnection() {
         else {
             THIS.sessionID = null;
             THIS.transportName = null;
-            if (rootConnection.status == 'connected') setStatus('disconnected');
-            //THIS.reconnect();
+            setStatus('disconnected');
+            //connect();
         }
         $('#sessionId').html(THIS.sessionID);
         $('#transport').html(THIS.transportName);
     }
 }
-log('Connecting to AGC server...');
-var rootConnection = new RootConnection();
-setInterval(rootConnection.update, 100);
+var rootConnection;
+
+function connect() {
+    if (rootConnection) clearInterval(rootConnection.interval);
+    rootConnection = new RootConnection();
+    setStatus('connecting');
+    log('Connecting to AGC server...');
+}
+connect();
 
 function send() {
     if (rootConnection.socket && rootConnection.socket.socket.connected) {
@@ -125,9 +129,12 @@ function setName(name) {
     rootConnection.socket.emit('setName', name, true, function(response) {
         if (response.availabe) {
             log("Name:" + response.name + " set");
+            $('#set_name').removeClass('enable');
+            $('body').addClass('disable');
         }
         else {
             log("Name:" + response.name + " not set");
+            $('#name_form .status-message').html("Name:" + response.name + " not availabe");
         }
     })
 }
@@ -176,6 +183,11 @@ function addGroup() {
     user.groups[group] = new Group(group);
 }
 
+function initialize() {
+    $('#set_name').addClass('enable');
+    $('body').addClass('disable');
+}
+
 var MessageBox;
 (function($) {
     MessageBox = function(group) {
@@ -195,6 +207,7 @@ var MessageBox;
     }
 
     $(document).ready(function() {
+        DOMReady = true;
         $('#sendButton').on('click', function(e) {
             send();
         });
@@ -209,5 +222,6 @@ var MessageBox;
         $('#name_form #nametext').keypress(function(e) {
             checkName($('#name_form #nametext').val());
         });
+        if (rootConnection.status == 'connected') initialize();
     });
 })(jQuery);

@@ -65,22 +65,27 @@
         <!--[if IE]><script src="/js/libs/html5.js"></script><script></script><![endif]-->
     </head>
     <body>
-        <div style="overflow:hidden;position:absolute;right:0;top:0;height:115px;width:115px;"><div class="github_ribbon" style="width:145px;"><a href="https://guthub.com/abhishekmunie" rel="me">Fork me on GitHub</a></div></div>
+        <div style="position:absolute;right:0;top:0;"><div class="github_ribbon"><a href="https://github.com/abhishekmunie/anonymous-group-chat" rel="me">Fork me on GitHub</a></div></div>
         <div id="set_name" class="top_dialog">
-            <form id="name_form">
-                <label for="nametext">Name: <input id="nametext" type="text" size="80" value="" required/></label>
-                <input id="signinButton" type="submit" value="Signin">
-                <span class="status-message"></span>
-            </form>
+            <div class="top_dialog_wrappqer">
+                <form id="name_form">
+                    <label for="nametext">Name: <input id="nametext" type="text" size="80" value="" required/></label>
+                    <input id="signinButton" type="submit" value="Signin">
+                    <span class="status-message"></span>
+                </form>
+            </div>
         </div>
         <div id="add_group" class="top_dialog">
-            <form id="new_group_form">
-                <label for="grouptext">Group: <input id="grouptext" type="text" size="80" value="" required/></label>
-                <input id="addGroupButton" type="submit" value="Add Group">
-            </form>
+            <div class="top_dialog_wrappqer">
+                <form id="new_group_form">
+                    <label for="grouptext">Group: <input id="grouptext" type="text" size="80" value="" required/></label>
+                    <input id="addGroupButton" type="submit" value="Add Group">
+                </form>
+            </div>
         </div>
-        <h1 id="title">Anonymous Group Chat</h1>
+        <div id="ui_disabler"></div>
         <header>
+            <h1 id="title">Anonymous Group Chat</h1>
             <div id="statusbar" class="statusbar">
                 <div class="statusbar_wrap">
                 <div>Status: <span id="status">Idle</span></div>

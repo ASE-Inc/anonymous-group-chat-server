@@ -91,7 +91,8 @@ td { vertical-align: top; }
     border-radius: 5px;
 }
 
-div.github_ribbon{background-color:#a00;position:absolute;right:-3em;top:15px;
+div.github_ribbon {
+    background-color:#a00;position:absolute;width:175px;right:-42px;top:15px;
     transform:rotate(45deg);-webkit-transform:rotate(45deg);-moz-transform:rotate(45deg);-o-transform:rotate(45deg);-ms-transform:rotate(45deg);
     box-shadow:0 0 1em #888;-webkit-box-shadow:0 0 1em #888;-moz-box-shadow:0 0 1em #888;-o-box-shadow:0 0 1em #888;-ms-box-shadow:0 0 1em #888;
 }
@@ -100,6 +101,35 @@ div.github_ribbon a{border:1px solid #faa;color:#fff;display:block;font:bold 81.
 #title {
     text-align: center;
 }
+#ui_disabler {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: url(http://d6ff1xmuve0sx.cloudfront.net/1.9.10-c1e13656/static//ext/main/style/images/bg-overlay.png) repeat 0 0;
+    position: fixed;
+    display: none;
+}
+
+body.disable #ui_disabler {
+    display: block;
+}
+
+.top_dialog {
+    top: 0;
+    left: 0;
+    text-align: center;
+    position: fixed;
+    display: none;
+    z-index: 999;
+}
+.top_dialog.enable {
+    display: block;
+}
+.top_dialog .top_dialog_wrappqer {
+    
+}
+
 .statusbar {
     margin:0;
     padding:0;
@@ -122,7 +152,6 @@ div.github_ribbon a{border:1px solid #faa;color:#fff;display:block;font:bold 81.
   background: linear-gradient(top,  #b4b4b4 0%,#949494 100%);
   -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#ebeaeb', endColorstr='#949494', GradientType=0)";
   box-shadow: inset 0 -3px 3px 0 rgba(255, 255, 255, 0.15);
-  position: relative;
   margin: 0 auto;
 }
 .statusbar.connected  .statusbar_wrap {
@@ -134,9 +163,6 @@ div.github_ribbon a{border:1px solid #faa;color:#fff;display:block;font:bold 81.
   background: -ms-linear-gradient(top,  #77cd00 0%,#4db800 100%);
   background: linear-gradient(top,  #77cd00 0%,#4db800 100%);
   -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#77cd00', endColorstr='#4db800', GradientType=0)";
-  box-shadow: inset 0 -3px 3px 0 rgba(255, 255, 255, 0.15);
-  position: relative;
-  margin: 0 auto;
 }
 .statusbar.connecting .statusbar_wrap {
   background: #ee9300;

@@ -65,7 +65,6 @@ function generateGroup(group) {
 var app = require('http').createServer(function(req, res) {
     var uri = url.parse(req.url).pathname;
     var filename = path.join(process.cwd(), uri);
-    if (fs.statSync(filename).isDirectory()) filename += '/index.html';
     path.exists(filename, function(exists) {
         if (!exists) {
             res.writeHead(404, {
@@ -78,6 +77,7 @@ var app = require('http').createServer(function(req, res) {
                 'Content-Type': mimeTypes[path.extname(filename).split(".")[1]]
             });
         }
+        if (fs.statSync(filename).isDirectory()) filename += '/index.html';
         var ua = req.headers['user-agent'];
         if (ua && ua.indexOf('MSIE') > -1 && /html?($|\?|#)/.test(req.url)) {
             res.setHeader('X-UA-Compatible', 'IE=Edge,chrome=1');

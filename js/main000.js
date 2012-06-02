@@ -46,9 +46,9 @@ function qualifyURL(url) {
     return div.firstChild.href;
 };
 
-var chatServer = ["http://agc.abhishekmunie.com", "http://agc1.abhishekmunie.com", "http://agc2.abhishekmunie.com", "http://agc3.abhishekmunie.com"],
-    chatLen = chatServer.length,
-    selectedChatServer = chatServer[Math.floor(Math.random() * chatLen)];
+var chatServers = ["http://agc.abhishekmunie.com", "http://agc1.abhishekmunie.com", "http://agc2.abhishekmunie.com", "http://agc3.abhishekmunie.com"],
+    chatLen = chatServers.length,
+    selectedChatServer = chatServers[Math.floor(Math.random() * chatLen)];
 
 onerror = function(msg) {
     log(msg);

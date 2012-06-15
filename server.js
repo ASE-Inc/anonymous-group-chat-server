@@ -1,7 +1,4 @@
-var fs = require('fs'),
-    url = require('url'),
-    path = require('path'),
-    ioClient = require('socket.io-client'),
+var ioClient = require('socket.io-client'),
     //chatServers = ["http://agc.abhishekmunie.com", "http://agc1.abhishekmunie.com",
     //"http://agc2.abhishekmunie.com", "http://agc3.abhishekmunie.com"],
     distributionServers = ["http://agcmd1.herokuapp.com", "http://agcmd2.herokuapp.com", "http://agcmd3.herokuapp.com"];
@@ -66,10 +63,7 @@ var app = require('h5bp').server(require('express'), {
     maxAge: 1000 * 60 * 60
 });
 app.get('*', function(req, res) {
-    res.writeHead(404, {
-        "Content-Type": "text/html"
-    });
-    fs.createReadStream(path.join(process.cwd(), url.parse('/404.html').pathname)).pipe(res);
+    res.sendfile(__dirname + '/404.html');
 });
 var io = require('socket.io').listen(app);
 app.listen(process.env.C9_PORT || process.env.PORT || process.env.VCAP_APP_PORT || process.env.VMC_APP_PORT || 1337 || 8001);

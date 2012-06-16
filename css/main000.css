@@ -115,12 +115,14 @@ div.github_ribbon a{border:1px solid #faa;color:#fff;display:block;font:bold 81.
 }
 
 body.disable #ui_disabler {
+    overflow: hidden;
     display: block;
 }
 
 .top_dialog {
     top: 0;
     left: 0;
+    width: 100%;
     text-align: center;
     position: fixed;
     display: none;
@@ -130,7 +132,9 @@ body.disable #ui_disabler {
     display: block;
 }
 .top_dialog .top_dialog_wrappqer {
+    display: inline-block;
     margin: 0 auto;
+    background: white;
 }
 
 .statusbar {

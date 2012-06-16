@@ -1,7 +1,7 @@
 {
     "name": "anonymous-group-chat",
     "description": "A free nodejs and socket.io based chat sevice with anonymous groups.",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "authors": [{
         "name": "Abhishek Munie",
         "email": "contact@abhishekmunie.com"

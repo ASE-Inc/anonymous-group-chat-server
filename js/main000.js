@@ -28,8 +28,7 @@ window.log = function f() {
     try {
         console.log();
         return window.console;
-    }
-    catch (a) {
+    } catch (a) {
         return (window.console = {});
     }
 }());
@@ -59,6 +58,7 @@ function setStatus(status) {
     $('#statusbar').removeClass('connected').removeClass('connecting').removeClass('disconnected');
     $('#statusbar').addClass(status);
     rootConnection.status = status;
+    document.getElementById('status').textContent = status;
 }
 
 function RootConnection() {
@@ -70,20 +70,18 @@ function RootConnection() {
     this.socket.on('connect', function() {
         log('Connected ');
         setStatus('connected');
-        document.getElementById('status').textContent = 'Connected';
         THIS.interval = setInterval(THIS.update, 100);
         if (DOMReady) initialize();
     });
     this.socket.on('message', function(data) {
-        log(data.name + ": " + data.msg);
+        log(data.name + ": " + data.message);
     });
     this.socket.socket.connect();
     this.update = function() {
         if (THIS.socket && THIS.socket.socket && THIS.socket.socket.transport) {
             THIS.sessionID = THIS.socket.socket.transport.sessid;
             THIS.transportName = THIS.socket.socket.transport.name;
-        }
-        else {
+        } else {
             THIS.sessionID = null;
             THIS.transportName = null;
             setStatus('disconnected');
@@ -115,32 +113,41 @@ function send() {
 
 
 function checkName(name) {
+    if (!name.length) {
+        $('#name_form .status-message').html("Enter a name");
+        return;
+    }
     rootConnection.socket.emit('setName', name, false, function(response) {
-        if (response.availabe) {
-            $('#name_form .status-message').html("Name:" + response.name + " availabe");
+        if (response.available) {
+            $('#name_form .status-message').html("Name:" + response.name + " available");
+        } else {
+            $('#name_form .status-message').html("Name:" + response.name + " not available");
         }
-        else {
-            $('#name_form .status-message').html("Name:" + response.name + " not availabe");
-        }
-    })
+    });
 }
 
 function setName(name) {
+    if (!name.length) {
+        $('#name_form .status-message').html("Enter a name");
+        return;
+    }
     rootConnection.socket.emit('setName', name, true, function(response) {
-        if (response.availabe) {
-            log("Name:" + response.name + " set");
+        if (response.available) {
+            log("Name: " + response.name + " set");
             $('#set_name').removeClass('enable');
-            $('body').addClass('disable');
-        }
-        else {
+            $('body').removeClass('disable');
+            $('#username').html(response.name);
+            user.groups["Open"] = new Group("Open");
+            user.groups["Open"].selected(true);
+        } else {
             log("Name:" + response.name + " not set");
             $('#name_form .status-message').html("Name:" + response.name + " not availabe");
         }
-    })
+    });
 }
 
 function User() {
-    this.name;
+    this.name = undefined;
     this.groups = {};
 }
 
@@ -149,7 +156,7 @@ var user = new User();
 function Group(group) {
     this.name = group;
     var THIS = this;
-    rootConnection.socket.emit('generateGroup', group);
+    rootConnection.socket.emit('generateGroup', '/' + group);
     this.socket = io.connect(selectedChatServer + '/' + group);
     this.socket.on('connect', function() {
         log('Connected ' + group);
@@ -157,8 +164,8 @@ function Group(group) {
         document.getElementById('status').textContent = 'Connected';
     });
     this.socket.on('message', function(data) {
-        log(data.name + ": " + data.msg);
-        THIS.messageBox.showMessage(data.name, data.msg);
+        log(data.name + ": " + data.message);
+        THIS.messageBox.showMessage(data.name, data.message);
     });
     this.socket.socket.connect();
     this.send = function(message) {
@@ -170,10 +177,11 @@ function Group(group) {
             return true;
         }
         return false;
-    }
-    this.selected = function() {
-        return $('.group-selected', THIS.messageBox).attr('checked');
-    }
+    };
+    this.selected = function(val) {
+        if (val != undefined) $('.group-selected', THIS.messageBox).attr('checked', val);
+        else return $('.group-selected', THIS.messageBox).attr('checked');
+    };
     this.messageBox = new MessageBox(this);
     $('#message_box_container').append(this.messageBox);
 }
@@ -189,39 +197,41 @@ function initialize() {
 }
 
 var MessageBox;
-(function($) {
-    MessageBox = function(group) {
-        var mb = $('<div class="messageBox">');
-        mb.tab = $('<div class="tab"><input class="group-selected" type="checkbox" size="80"/>' + group.name + '<span class="close">x</span></div>');
-        mb.messageContainer = $('<div class="message-container"></div>');
-        mb.append(mb.tab);
-        mb.append(mb.messageContainer);
-        mb.group = group;
-        mb.showMessage = function(name, message) {
-            $('.message-container', mb).append($('<div class="message">' + name + ': ' + new Date() + '\n' + message + '</div>'));
-        }
-        mb.clearMessages = function() {
-            $('.message-container', mb).html("");
-        }
-        return mb;
-    }
+MessageBox = function(group) {
+    var mb = $('<div class="messageBox">');
+    mb.tab = $('<div class="tab"><input class="group-selected" type="checkbox" size="80"/>' + group.name + '<span class="close">x</span></div>');
+    mb.messageContainer = $('<div class="message-container"></div>');
+    mb.append(mb.tab);
+    mb.append(mb.messageContainer);
+    mb.group = group;
+    mb.showMessage = function(name, message) {
+        $('.message-container', mb).append($('<div class="message">' + name + ': ' + new Date() + '\n' + message + '</div>'));
+    };
+    mb.clearMessages = function() {
+        $('.message-container', mb).html("");
+    };
+    return mb;
+};
 
-    $(document).ready(function() {
-        DOMReady = true;
-        $('#sendButton').on('click', function(e) {
-            send();
-        });
-        $('#name_form').submit(function(e) {
-            setName($('#name_form #nametext').val());
-            return false;
-        });
-        $('#new_group_form').submit(function(e) {
-            addGroup();
-            return false;
-        });
-        $('#name_form #nametext').keypress(function(e) {
-            checkName($('#name_form #nametext').val());
-        });
-        if (rootConnection.status == 'connected') initialize();
+$(document).ready(function() {
+    DOMReady = true;
+    $('#sendButton').on('click', function(e) {
+        send();
     });
-})(jQuery);
+    $('#message_form').submit(function(e) {
+        send();
+        return false;
+    });
+    $('#name_form').submit(function(e) {
+        setName($('#name_form #nametext').val());
+        return false;
+    });
+    $('#new_group_form').submit(function(e) {
+        addGroup();
+        return false;
+    });
+    $('#name_form #nametext').keypress(function(e) {
+        //checkName($('#name_form #nametext').val());
+    });
+    if (rootConnection.status == 'connected') initialize();
+});

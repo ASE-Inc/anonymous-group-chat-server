@@ -30,18 +30,18 @@ function distributeMessage(sockets, data) {
 
 function addGroupToUser(name, group, socket) {
     users[name].sockets[group] = socket;
-    socket.on('message', function(data) {
+    socket.on('message', function(message) {
         var messageData = {
             name: name,
-            data: data
+            message: message
         };
-        socket.namespace.emit("message", messageData);
+        socket.emit("message", messageData);
         distributeMessage(groups[group].distributionSockets, messageData);
     });
 }
 
 function createGroup(group) {
-    if ((group.length == 1) || groups[group]) return;
+    if (groups[group]) return;
     groups[group] = {
         distributionSockets: generateDistributionSockets(group),
         socket: io.of(group).on('connection', function(socket) {
@@ -54,9 +54,7 @@ function createGroup(group) {
 
 function generateGroup(group) {
     createGroup(group);
-    distributionSockets[Math.floor(Math.random() * distributionLen)].emit('createGroup', {
-        group: group
-    });
+    distributionSockets[Math.floor(Math.random() * distributionLen)].emit('createGroup', group);
 }
 var app = require('h5bp').server(require('express'), {
     root: __dirname + "/",
@@ -68,15 +66,14 @@ app.get('*', function(req, res) {
 var io = require('socket.io').listen(app);
 app.listen(process.env.C9_PORT || process.env.PORT || process.env.VCAP_APP_PORT || process.env.VMC_APP_PORT || 1337 || 8001);
 io.configure(function() {
-/* //Production Settings
     io.enable('browser client minification');
     io.enable('browser client etag');
-    io.enable('browser client gzip');
-    io.set('log level', 1);
-    io.set('transports', ['websocket', 'htmlfile', 'xhr-polling', 'jsonp-polling', 'flashsocket']);*/
+    //io.enable('browser client gzip');
+    //io.set('log level', 1);
+    //io.set('transports', ['websocket', 'htmlfile', 'xhr-polling', 'jsonp-polling', 'flashsocket']);
     io.set("polling duration", 10);
     io.set('authorization', function(handshakeData, callback) {
-        callback(null, true); // error first callback style 
+        callback(null, true); // error first callback style
     });
 });
 io.sockets.on('connection', function(socket) {
@@ -87,13 +84,12 @@ io.sockets.on('connection', function(socket) {
         }
     };
     socket.on('setName', function(name, final, response) {
-        if (user[name]) {
+        if (users[name]) {
             response({
                 name: name,
                 available: false
             });
-        }
-        else {
+        } else {
             if (final) {
                 socket.set('name', name, function() {});
                 user.name = name;
@@ -112,9 +108,11 @@ io.sockets.on('connection', function(socket) {
         generateGroup(group);
     });
     socket.on('disconnect', function() {});
+    socket.on('message', function(msg) {
+        console.log(msg.toString());
+    });
     socket.namespace.emit("message", {
         name: "server",
         message: "connected new member"
     });
 });
-generateGroup("/");

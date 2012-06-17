@@ -98,6 +98,9 @@ div.github_ribbon {
 }
 div.github_ribbon a{border:1px solid #faa;color:#fff;display:block;font:bold 81.25% 'Helvetiva Neue',Helvetica,Arial,sans-serif;margin:0.05em 0;padding:0.5em 3.5em;text-align:center;text-decoration:none;text-shadow:0 0 0.5em #444;}
 
+#myheader {
+
+}
 #title {
     text-align: center;
 }
@@ -109,8 +112,8 @@ div.github_ribbon a{border:1px solid #faa;color:#fff;display:block;font:bold 81.
     margin: 0;
     padding: 0;
     outline: none;
-    background: url(http://d6ff1xmuve0sx.cloudfront.net/1.9.10-c1e13656/static//ext/main/style/images/bg-overlay.png) repeat 0 0;
-    position: fixed;
+    background: url(http://s.abhishekmunie.com/img/overlays/c9bg-transpanel.png) repeat 0 0;
+    position: absolute;
     display: none;
 }
 
@@ -119,11 +122,15 @@ body.disable #ui_disabler {
     display: block;
 }
 
+#main {
+    position:relative;
+}
+
 .top_dialog {
     top: 0;
     left: 0;
     width: 100%;
-    text-align: center;
+    text-align: absolute;
     position: fixed;
     display: none;
     z-index: 999;

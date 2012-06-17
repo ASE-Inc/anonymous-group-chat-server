@@ -32,13 +32,13 @@
         <meta property="og:url" content="http://agc.abhishekmunie.com"/>
         <meta property="og:image" content=""/>
         <meta property="og:site_name" content="Abhishek Munie | Anonymous Group Chat: Based on NodeJS & websockets"/>
-        <meta property="og:description" content=""/>
+        <meta property="og:description" content="A free nodejs and socket.io based chat sevice with anonymous groups"/>
         <meta property="og:email" content="agc@abhishekmunie.com"/>
         <meta property="fb:app_id" content="119876094728323"/>
         <meta property="fb:page_id" content=""/>
 
         <meta itemprop=name content="Abhishek Munie"/>
-        <meta itemprop=description content=""/>
+        <meta itemprop=description content="A free nodejs and socket.io based chat sevice with anonymous groups"/>
         <meta itemprop=image content=""/>
 
         <link rel=stylesheet href='css/main000.css' type="text/css" media="handheld, all"/>
@@ -65,7 +65,7 @@
         <!--[if IE]><script src="/js/libs/html5.js"></script><script></script><![endif]-->
     </head>
     <body>
-        <header>
+        <header id="myheader">
             <div id="statusbar" class="statusbar">
                 <div class="statusbar_wrap">
                     <h1 id="title">Anonymous Group Chat</h1>
@@ -74,12 +74,9 @@
                     <div class="sessionDetails">Transport: <span id="transport"> </span></div>
                 </div>
             </div>
-            <hr/>
-            <div>
-                Name: <span id="username"></span>
-            </div>
         </header>
-        <div >
+        <div id="main">
+            <div id="ui_disabler"></div>
             <div style="overflow:hidden;position:absolute;right:0;top:0;width:125px;height:125px;"><div class="github_ribbon"><a href="https://github.com/abhishekmunie/anonymous-group-chat" rel="me">Fork me on GitHub</a></div></div>
             <div id="set_name" class="top_dialog">
                 <div class="top_dialog_wrappqer">
@@ -98,11 +95,14 @@
                     </form>
                 </div>
             </div>
-            <div id="ui_disabler"></div>
-                    <form id="message_form">
-                        <label for="messagetext">Message: <textarea id="messagetext" value="" placeholder="Message ..." required/></textarea>
-                        <input id="sendButton" type="submit" value="Send">
-                    </form>
+            <div>
+                Name: <span id="username"></span>
+            </div>
+            <hr/>
+            <form id="message_form">
+                <label for="messagetext">Message: <textarea id="messagetext" value="" placeholder="Message ..." required/></textarea>
+                <input id="sendButton" type="submit" value="Send">
+            </form>
             <div id="message_box_container">
                 <div class="message_box">
                     <input type=button value="Clear History" onclick="clearLog()"/>
@@ -113,7 +113,7 @@
         <footer id="MyFooter" class="Bar outerBlocks">
             <div id="MyFooterBox" class="Shadow nrcOuterBlock">
                 Create by: <a href="http://abhishekmunie.com">Abhishek Munie</a>
-                Powered by: <a href="http://c9.io"><img src="http://sx.abhishekmunie.com/img/ext_logos/cloud9.png" alt="Cloud9 IDE"/></a>, <a href="http://socket.io"><img src="http://sx.abhishekmunie.com/img/ext_logos/socketio.png" alt="Socket.IO"/></a></a> & <a href="http://www.heroku.com/"><img src="http://sx.abhishekmunie.com/img/ext_logos/heroku.png" alt=""/> Heroku (pronounced her-OH-koo)</a>
+                Powered by: <a href="http://c9.io"><img src="http://s.abhishekmunie.com/img/ext_logos/cloud9.png" alt="Cloud9 IDE"/></a>, <a href="http://socket.io"><img src="http://s.abhishekmunie.com/img/ext_logos/socketio.png" alt="Socket.IO"/></a></a> & <a href="http://www.heroku.com/"><img src="http://s.abhishekmunie.com/img/ext_logos/heroku-text.png" alt="Heroku (pronounced her-OH-koo)"/></a>
             </div>
         </footer>
     </body>

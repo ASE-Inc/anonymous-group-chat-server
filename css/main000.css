@@ -101,9 +101,140 @@ div.github_ribbon a{border:1px solid #faa;color:#fff;display:block;font:bold 81.
 #myheader {
     height: 69px;
 }
-#title {
-    text-align: center;
+
+.statusbar {
+    
+    height: 100%;
+    margin:0;
+    padding:0;
+    color: white;
 }
+
+.statusbar .inner {
+  color: #fff;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  border-radius: 3px;
+}
+.statusbar #title_wrapper {
+    display: inline-block;
+    padding: 9px;
+    height: 100%;
+    box-shadow: inset 0 -3px 3px 0 rgba(255, 255, 255, 0.15);
+}
+.statusbar #title {
+  text-align: center;
+  height: 100%;
+  background: #b4b4b4;
+  background: -moz-linear-gradient(top,  #b4b4b4 0%, #949494 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#b4b4b4), color-stop(100%,#949494));
+  background: -webkit-linear-gradient(top,  #b4b4b4 0%,#949494 100%);
+  background: -o-linear-gradient(top,  #b4b4b4 0%,#949494 100%);
+  background: -ms-linear-gradient(top,  #b4b4b4 0%,#949494 100%);
+  background: linear-gradient(top,  #b4b4b4 0%,#949494 100%);
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#ebeaeb', endColorstr='#949494', GradientType=0)";
+  margin: 0 auto;
+}
+.statusbar.connected  #title {
+  background: #77cd00;
+  background: -moz-linear-gradient(top,  #77cd00 0%, #4db800 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#77cd00), color-stop(100%,#4db800));
+  background: -webkit-linear-gradient(top,  #77cd00 0%,#4db800 100%);
+  background: -o-linear-gradient(top,  #77cd00 0%,#4db800 100%);
+  background: -ms-linear-gradient(top,  #77cd00 0%,#4db800 100%);
+  background: linear-gradient(top,  #77cd00 0%,#4db800 100%);
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#77cd00', endColorstr='#4db800', GradientType=0)";
+}
+.statusbar.connecting #title {
+  background: #ee9300;
+  background: -moz-linear-gradient(top,  #ee9300 0%, #e36700 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ee9300), color-stop(100%,#e36700));
+  background: -webkit-linear-gradient(top,  #ee9300 0%,#e36700 100%);
+  background: -o-linear-gradient(top,  #ee9300 0%,#e36700 100%);
+  background: -ms-linear-gradient(top,  #ee9300 0%,#e36700 100%);
+  background: linear-gradient(top,  #ee9300 0%,#e36700 100%);
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#ee9300', endColorstr='#e36700', GradientType=0)";
+}
+.statusbar.disconnected #title {
+  background: #d30202;
+  background: -moz-linear-gradient(top,  #d30202 0%, #b80000 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#d30202), color-stop(100%,#b80000));
+  background: -webkit-linear-gradient(top,  #d30202 0%,#b80000 100%);
+  background: -o-linear-gradient(top,  #d30202 0%,#b80000 100%);
+  background: -ms-linear-gradient(top,  #d30202 0%,#b80000 100%);
+  background: linear-gradient(top,  #d30202 0%,#b80000 100%);
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#d30202', endColorstr='#b80000', GradientType=0)";
+}
+.statusbar .statusbar_wrap #title {
+    color: transparent;
+    background-clip: text;
+    -khtml-background-clip: text;
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    -o-background-clip: text;
+    -ms-background-clip: text;
+}
+
+.statusbar .statusbar_wrap {
+  width: 100%;
+  background: #b4b4b4;
+  background: -moz-linear-gradient(top,  #b4b4b4 0%, #949494 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#b4b4b4), color-stop(100%,#949494));
+  background: -webkit-linear-gradient(top,  #b4b4b4 0%,#949494 100%);
+  background: -o-linear-gradient(top,  #b4b4b4 0%,#949494 100%);
+  background: -ms-linear-gradient(top,  #b4b4b4 0%,#949494 100%);
+  background: linear-gradient(top,  #b4b4b4 0%,#949494 100%);
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#ebeaeb', endColorstr='#949494', GradientType=0)";
+  box-shadow: inset 0 -3px 3px 0 rgba(255, 255, 255, 0.15);
+  margin: 0 auto;
+}
+.statusbar.connected  .statusbar_wrap {
+  background: #77cd00;
+  background: -moz-linear-gradient(top,  #77cd00 0%, #4db800 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#77cd00), color-stop(100%,#4db800));
+  background: -webkit-linear-gradient(top,  #77cd00 0%,#4db800 100%);
+  background: -o-linear-gradient(top,  #77cd00 0%,#4db800 100%);
+  background: -ms-linear-gradient(top,  #77cd00 0%,#4db800 100%);
+  background: linear-gradient(top,  #77cd00 0%,#4db800 100%);
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#77cd00', endColorstr='#4db800', GradientType=0)";
+}
+.statusbar.connecting .statusbar_wrap {
+  background: #ee9300;
+  background: -moz-linear-gradient(top,  #ee9300 0%, #e36700 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ee9300), color-stop(100%,#e36700));
+  background: -webkit-linear-gradient(top,  #ee9300 0%,#e36700 100%);
+  background: -o-linear-gradient(top,  #ee9300 0%,#e36700 100%);
+  background: -ms-linear-gradient(top,  #ee9300 0%,#e36700 100%);
+  background: linear-gradient(top,  #ee9300 0%,#e36700 100%);
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#ee9300', endColorstr='#e36700', GradientType=0)";
+}
+.statusbar.disconnected .statusbar_wrap {
+  background: #d30202;
+  background: -moz-linear-gradient(top,  #d30202 0%, #b80000 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#d30202), color-stop(100%,#b80000));
+  background: -webkit-linear-gradient(top,  #d30202 0%,#b80000 100%);
+  background: -o-linear-gradient(top,  #d30202 0%,#b80000 100%);
+  background: -ms-linear-gradient(top,  #d30202 0%,#b80000 100%);
+  background: linear-gradient(top,  #d30202 0%,#b80000 100%);
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#d30202', endColorstr='#b80000', GradientType=0)";
+}
+
+.statusbar .statusbar_wrap>* {
+    display: inline-block;
+}
+
+.statusbar p {
+  margin: 0 0 10px 0;
+  opacity: 0.7;
+}
+.statusbar h1 {
+  margin: 0 0 0 -3px;
+  font-size: 48px;
+  letter-spacing: -1px;
+}
+
+.sessionDetails {}
+
 #ui_disabler {
     top: 0;
     right: 0;
@@ -167,72 +298,6 @@ body.disable #ui_disabler {
     -ms-border-radius: 0 0 5px 5px;
 }
 
-.statusbar {
-    margin:0;
-    padding:0;
-    color: white;
-}
-
-.statusbar .inner {
-  color: #fff;
-  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
-  padding: 20px;
-  border-radius: 3px;
-}
-.statusbar .statusbar_wrap {
-  background: #b4b4b4;
-  background: -moz-linear-gradient(top,  #b4b4b4 0%, #949494 100%);
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#b4b4b4), color-stop(100%,#949494));
-  background: -webkit-linear-gradient(top,  #b4b4b4 0%,#949494 100%);
-  background: -o-linear-gradient(top,  #b4b4b4 0%,#949494 100%);
-  background: -ms-linear-gradient(top,  #b4b4b4 0%,#949494 100%);
-  background: linear-gradient(top,  #b4b4b4 0%,#949494 100%);
-  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#ebeaeb', endColorstr='#949494', GradientType=0)";
-  box-shadow: inset 0 -3px 3px 0 rgba(255, 255, 255, 0.15);
-  margin: 0 auto;
-}
-.statusbar.connected  .statusbar_wrap {
-  background: #77cd00;
-  background: -moz-linear-gradient(top,  #77cd00 0%, #4db800 100%);
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#77cd00), color-stop(100%,#4db800));
-  background: -webkit-linear-gradient(top,  #77cd00 0%,#4db800 100%);
-  background: -o-linear-gradient(top,  #77cd00 0%,#4db800 100%);
-  background: -ms-linear-gradient(top,  #77cd00 0%,#4db800 100%);
-  background: linear-gradient(top,  #77cd00 0%,#4db800 100%);
-  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#77cd00', endColorstr='#4db800', GradientType=0)";
-}
-.statusbar.connecting .statusbar_wrap {
-  background: #ee9300;
-  background: -moz-linear-gradient(top,  #ee9300 0%, #e36700 100%);
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ee9300), color-stop(100%,#e36700));
-  background: -webkit-linear-gradient(top,  #ee9300 0%,#e36700 100%);
-  background: -o-linear-gradient(top,  #ee9300 0%,#e36700 100%);
-  background: -ms-linear-gradient(top,  #ee9300 0%,#e36700 100%);
-  background: linear-gradient(top,  #ee9300 0%,#e36700 100%);
-  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#ee9300', endColorstr='#e36700', GradientType=0)";
-}
-.statusbar.disconnected .statusbar_wrap {
-  background: #d30202;
-  background: -moz-linear-gradient(top,  #d30202 0%, #b80000 100%);
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#d30202), color-stop(100%,#b80000));
-  background: -webkit-linear-gradient(top,  #d30202 0%,#b80000 100%);
-  background: -o-linear-gradient(top,  #d30202 0%,#b80000 100%);
-  background: -ms-linear-gradient(top,  #d30202 0%,#b80000 100%);
-  background: linear-gradient(top,  #d30202 0%,#b80000 100%);
-  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#d30202', endColorstr='#b80000', GradientType=0)";
-}
-
-.statusbar p {
-  margin: 0 0 10px 0;
-  opacity: 0.7;
-}
-.statusbar h1 {
-  margin: 0 0 0 -3px;
-  font-size: 48px;
-  letter-spacing: -1px;
-}
-
-.sessionDetails {}
 #msgtext {
     width: 91%;
     min-height: 69px;
@@ -260,6 +325,7 @@ body.disable #ui_disabler {
     bottom: 0;
     text-align: center;
     position: absolute;
+    width: 100%;
     height: 50px;
 }
 .Bar{
@@ -278,6 +344,9 @@ body.disable #ui_disabler {
 
 #MyFooterBox {
     margin: 0 auto;
+    display: inline-block;
+    padding: 2px 5px;
+    height: 100%;
 }
 
 .sponsor_img {

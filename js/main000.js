@@ -104,8 +104,8 @@ connect();
 function send() {
     if (rootConnection.socket && rootConnection.socket.socket.connected) {
         var message = document.getElementById('messagetext').value;
-        for (var len = user.groups.length; len;)
-        if (user.groups[--len].selected()) user.groups[len].send(message);
+        for (var group in user.groups)
+            if (group.selected()) group.send(message);
         return true;
     }
     return false;

@@ -70,6 +70,7 @@ td { vertical-align: top; }
 
 .chromeframe { margin: 0.2em 0; background: #ccc; color: black; padding: 0.2em 0; }
 
+a {text-decoration: none}
 
 .fixedRatioBox,.goldenBox,.goldenBox_flexi,.goldenBox_Vertical,.goldenBox_Vertical_flexi{position:relative;display:inline-block;}
 .fixedRatioBox>.dummy,.goldenBox>.dummy,.goldenBox_flexi>.dummy,.goldenBox_Vertical>.dummy,.goldenBox_Vertical_flexi>.dummy{float:left;width:0;height:0;}
@@ -103,7 +104,6 @@ div.github_ribbon a{border:1px solid #faa;color:#fff;display:block;font:bold 81.
 }
 
 .statusbar {
-    
     height: 100%;
     margin:0;
     padding:0;
@@ -177,6 +177,7 @@ div.github_ribbon a{border:1px solid #faa;color:#fff;display:block;font:bold 81.
 
 .statusbar .statusbar_wrap {
   width: 100%;
+  height: 100%;
   background: #b4b4b4;
   background: -moz-linear-gradient(top,  #b4b4b4 0%, #949494 100%);
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#b4b4b4), color-stop(100%,#949494));
@@ -259,7 +260,7 @@ body.disable #ui_disabler {
     right: 0;
     bottom: 0;
     left: 0;
-    padding: 69px 0 50px 0;
+    padding: 69px 33px 50px 33px;
 }
 #main_wrapper {
     position: relative;
@@ -285,7 +286,7 @@ body.disable #ui_disabler {
     display: inline-block;
     margin: 0 auto;
     background-color: white;
-    padding: 30px 0;
+    padding: 30px 15px;
     box-shadow: 0 0 12px #3079ED;
     border-radius: 0 0 5px 5px;
     -webkit-box-shadow: 0 0 12px #3079ED;
@@ -345,7 +346,7 @@ body.disable #ui_disabler {
 #MyFooterBox {
     margin: 0 auto;
     display: inline-block;
-    padding: 2px 5px;
+    padding: 2px 15px;
     height: 100%;
 }
 

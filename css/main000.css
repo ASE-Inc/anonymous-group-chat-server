@@ -70,7 +70,7 @@ td { vertical-align: top; }
 
 .chromeframe { margin: 0.2em 0; background: #ccc; color: black; padding: 0.2em 0; }
 
-a {text-decoration: none}
+a {text-decoration: none;}
 
 .fixedRatioBox,.goldenBox,.goldenBox_flexi,.goldenBox_Vertical,.goldenBox_Vertical_flexi{position:relative;display:inline-block;}
 .fixedRatioBox>.dummy,.goldenBox>.dummy,.goldenBox_flexi>.dummy,.goldenBox_Vertical>.dummy,.goldenBox_Vertical_flexi>.dummy{float:left;width:0;height:0;}
@@ -104,6 +104,7 @@ div.github_ribbon a{border:1px solid #faa;color:#fff;display:block;font:bold 81.
 }
 
 .statusbar {
+    
     height: 100%;
     margin:0;
     padding:0;
@@ -348,6 +349,8 @@ body.disable #ui_disabler {
     display: inline-block;
     padding: 2px 15px;
     height: 100%;
+    color:#EEEEEE;
+    
 }
 
 .sponsor_img {

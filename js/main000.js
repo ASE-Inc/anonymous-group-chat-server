@@ -105,7 +105,7 @@ function send() {
     if (rootConnection.socket && rootConnection.socket.socket.connected) {
         var message = document.getElementById('messagetext').value;
         for (var group in user.groups)
-            if (group.selected()) group.send(message);
+            if (user.groups[group].selected()) user.groups[group].send(message);
         return true;
     }
     return false;

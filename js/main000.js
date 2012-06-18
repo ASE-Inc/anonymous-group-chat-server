@@ -189,6 +189,8 @@ function Group(group) {
 function addGroup() {
     var group = $('#new_group_form #grouptext').val();
     user.groups[group] = new Group(group);
+    $('#add_group').removeClass('enable');
+    $('body').removeClass('disable');
 }
 
 function initialize() {
@@ -215,6 +217,10 @@ MessageBox = function(group) {
 
 $(document).ready(function() {
     DOMReady = true;
+    $('#add_button').on('click', function(e) {
+        $('#add_group').addClass('enable');
+        $('body').addClass('disable');
+    });
     $('#sendButton').on('click', function(e) {
         send();
     });

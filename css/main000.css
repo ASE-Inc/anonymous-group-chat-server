@@ -101,14 +101,15 @@ div.github_ribbon a{border:1px solid #faa;color:#fff;display:block;font:bold 81.
 
 #myheader {
     height: 69px;
+    z-index: 999;
 }
 
 .statusbar {
-    
     height: 100%;
     margin:0;
     padding:0;
     color: white;
+    z-index:99;
 }
 
 .statusbar .inner {
@@ -262,6 +263,7 @@ body.disable #ui_disabler {
     bottom: 0;
     left: 0;
     padding: 69px 33px 50px 33px;
+    z-index: -1;
 }
 #main_wrapper {
     position: relative;
@@ -306,9 +308,17 @@ body.disable #ui_disabler {
     display: block;
 }
 
+#message_box_container {
+    
+}
+#message_box_container .message_box {
+    
+}
+
 .messageBox {
     width: 33.33%;
     min-width: 450px;
+    height:100%;
 }
 .messageBox .tab{
 

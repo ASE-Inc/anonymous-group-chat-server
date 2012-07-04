@@ -105,7 +105,7 @@ function send() {
     if (rootConnection.socket && rootConnection.socket.socket.connected) {
         var message = document.getElementById('messagetext').value;
         for (var group in user.groups)
-            if (user.groups[group].selected()) user.groups[group].send(message);
+        if (user.groups[group].selected()) user.groups[group].send(message);
         return true;
     }
     return false;
@@ -183,7 +183,7 @@ function Group(group) {
         else return $('.group-selected', THIS.messageBox).attr('checked');
     };
     this.messageBox = new MessageBox(this);
-    $('#message_box_container').append(this.messageBox);
+    $('#message_box_container .message_box_wrapper>tr').append(this.messageBox);
 }
 
 function addGroup() {
@@ -198,26 +198,32 @@ function initialize() {
     $('body').addClass('disable');
 }
 
-var MessageBox;
-MessageBox = function(group) {
-    var mb = $('<div class="messageBox">');
-    mb.tab = $('<div class="tab"><input class="group-selected" type="checkbox" size="80"/>' + group.name + '<span class="close">x</span></div>');
-    mb.messageContainer = $('<div class="message-container"></div>');
-    mb.append(mb.tab);
-    mb.append(mb.messageContainer);
-    mb.group = group;
-    mb.showMessage = function(name, message) {
-        $('.message-container', mb).append($('<div class="message">' + name + ': ' + new Date() + '\n' + message + '</div>'));
+var MessageBox = function(group) {
+        var mb = $('<td class="messageBox">');
+        mb.tab = $('<div class="tab"><input class="group-selected" type="checkbox" size="80"/>' + group.name + '<span class="close">x</span></div>');
+        mb.messageContainer = $('<div class="message-container"></div>');
+        mb.append(mb.tab);
+        mb.append(mb.messageContainer);
+        mb.group = group;
+        $('.group-selected', mb).on('click', function(e) {
+            if (!(e.ctrlKey||e.metaKey)) {
+                for (var g in user.groups)
+                    if(user.groups[g]!=group)user.groups[g].selected(false);
+            }
+            group.selected(false);
+        });
+        mb.showMessage = function(name, message) {
+            $('.message-container', mb).append($('<div class="message">' + name + ': ' + new Date() + '\n' + message + '</div>'));
+        };
+        mb.clearMessages = function() {
+            $('.message-container', mb).html("");
+        };
+        return mb;
     };
-    mb.clearMessages = function() {
-        $('.message-container', mb).html("");
-    };
-    return mb;
-};
 
 $(document).ready(function() {
     DOMReady = true;
-    $('#add_button').on('click', function(e) {
+    $('#newGroupButton').on('click', function(e) {
         $('#add_group').addClass('enable');
         $('body').addClass('disable');
     });

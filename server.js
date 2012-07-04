@@ -72,9 +72,9 @@ io.configure(function() {
     //io.set('log level', 1);
     //io.set('transports', ['websocket', 'htmlfile', 'xhr-polling', 'jsonp-polling', 'flashsocket']);
     io.set("polling duration", 10);
-    io.set('authorization', function(handshakeData, callback) {
+    /*io.set('authorization', function(handshakeData, callback) {
         callback(null, true); // error first callback style
-    });
+    });*/
 });
 io.sockets.on('connection', function(socket) {
     var user = {

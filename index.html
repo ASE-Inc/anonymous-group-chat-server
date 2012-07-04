@@ -64,7 +64,7 @@
         </script>
         <!--[if IE]><script src="/js/libs/html5.js"></script><script></script><![endif]-->
     </head>
-    <body>
+    <body class="disable">
         <header id="myheader">
             <div style="overflow:hidden;position:absolute;right:0;top:0;width:125px;height:125px;"><div class="github_ribbon"><a href="https://github.com/abhishekmunie/anonymous-group-chat" rel="me">Fork me on GitHub</a></div></div>
             <div id="statusbar" class="statusbar">
@@ -96,7 +96,19 @@
         <div id="main">
             <div id="ui_disabler"></div>
             <div id="main_wrapper">
-                <div>
+                <div id="message_box_container">
+                    <table class="message_box_wrapper">  
+                        <tr>  
+                        </tr>
+                    </table>
+                    </div>
+                    <div id="message_box_control">
+                        <input type=button value="Clear History" onclick="clearLog()"/>
+                        <pre id="log">Messages:</pre>
+                        <button id="newGroupButton">Add Group</button>
+                    </div>
+                </div>
+                <div id="message_control">
                     <div>
                         Name: <span id="username"></span>
                     </div>
@@ -105,13 +117,6 @@
                         <label for="messagetext">Message: <textarea id="messagetext" value="" placeholder="Message ..." required/></textarea>
                         <input id="sendButton" type="submit" value="Send">
                     </form>
-                    <button id="add_button">Add Button</button>
-                </div>
-                <div id="message_box_container">
-                    <div class="message_box">
-                        <input type=button value="Clear History" onclick="clearLog()"/>
-                        <pre id="log">Messages:</pre>
-                    </div>
                 </div>
             </div>
         </div>

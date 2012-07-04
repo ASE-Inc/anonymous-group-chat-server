@@ -100,6 +100,12 @@ div.github_ribbon {
 div.github_ribbon a{border:1px solid #faa;color:#fff;display:block;font:bold 81.25% 'Helvetiva Neue',Helvetica,Arial,sans-serif;margin:0.05em 0;padding:0.5em 3.5em;text-align:center;text-decoration:none;text-shadow:0 0 0.5em #444;}
 
 #myheader {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
     height: 69px;
     z-index: 999;
 }
@@ -285,21 +291,21 @@ div.github_ribbon a{border:1px solid #faa;color:#fff;display:block;font:bold 81.
 body.disable #ui_disabler {
     overflow: hidden;
     display: block;
+    height: 100%;
 }
 
 #main {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
+    position: relative;
     padding: 69px 33px 50px 33px;
     z-index: -1;
+    width: 100%;
+    height: 100%;
 }
 #main_wrapper {
     position: relative;
     width: 100%;
     height: 100%;
+    padding: 100px 0 0 0;
 }
 
 #msgtext {
@@ -309,17 +315,23 @@ body.disable #ui_disabler {
 }
 
 #message_box_container {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    padding: 100px 0 0 0;
-}
-#message_box_container .message_box {
     width: 100%;
     height: 100%;
+    position: relative;
+}
+#message_box_container .message_box_wrapper {
+    width: 100%;
+    height: 100%;
+    padding: 75px 0 0 0;
     overflow-x: auto;
+    /*overflow-y: hidden;*/
+}
+
+#message_box_container #message_box_control {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
 }
 
 .messageBox {
@@ -327,6 +339,8 @@ body.disable #ui_disabler {
     min-width: 450px;
     height:100%;
     border: red 1px solid;
+    overflow-y: auto;
+    display: inline-block;
 }
 .messageBox .tab{
 
@@ -336,6 +350,31 @@ body.disable #ui_disabler {
 }
 .messageBox .message-container .message {
 
+}
+
+#message_control {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+.btnsesssioncontainer .plus_tab_button {
+background-image: url(http://d6ff1xmuve0sx.cloudfront.net:80/2.0.1-cc14c17f/static/ext/main/style/images/c9-no-repeat.png);
+background-position: -58px -80px;
+background-repeat: no-repeat;
+display: inline-block;
+height: 17px;
+margin: 0px 0px 0 12px;
+top: 6px;
+width: 30px;
+vertical-align: top;
+overflow: hidden;
+cursor: default;
+position: relative;
+-moz-user-select: none;
+-khtml-user-select: none;
+user-select: none;
 }
 
 

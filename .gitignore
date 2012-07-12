@@ -12,12 +12,10 @@
 
 # OS or Editor folders
 .DS_Store
-Icon
+Icon?
 Thumbs.db
 .cache
 .project
-<<<<<<< HEAD
-=======
 .settings
 .tmproj
 *.esproj
@@ -32,19 +30,15 @@ dwsync.xml
 # Komodo
 *.komodoproject
 .komodotools
->>>>>>> updated .gitignore
 
 # Folders to ignore
 .hg
 .svn
 .CVS
 .idea
-
-<<<<<<< HEAD
 node_modules/
 .c9revisions/
 .DS_Store
-=======
 intermediate/
 node_modules/
 .c9revisions/
@@ -52,4 +46,3 @@ node_modules/
 # build script local files
 build/buildinfo.properties
 build/config/buildinfo.properties
->>>>>>> updated .gitignore
